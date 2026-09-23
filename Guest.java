@@ -16,6 +16,7 @@ public class Guest {
     public boolean checkIn(Cave newCave) {
         if (this.cave == null && newCave.isFree() && newCave.getCapacity() >= this.size){
             this.cave = newCave;
+            newCave.setGuest(this);
             return true;
         }
         return false;
@@ -23,7 +24,9 @@ public class Guest {
 
     public boolean checkOut() {
         if (this.cave != null){
+            Cave oldCave = this.cave;
             this.cave = null;
+            oldCave.setGuest(null);
             return true;
         }
         return false;
